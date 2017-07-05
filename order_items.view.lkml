@@ -42,4 +42,29 @@ view: order_items {
     type: count
     drill_fields: [id, inventory_items.id, orders.id]
   }
+  dimension: profit {
+    type: number
+    sql: ${TABLE}.sale_price-${inventory_items.cost} ;;
+  }
+  dimension: discount {
+    type: number
+    sql: ${products.retail_price}-${TABLE}.sale_price;;
+    value_format_name: usd
+  }
+  measure: total_profit {
+    type:  sum
+    sql: ${profit} ;;
+    value_format_name: usd
+  }
+  measure: average_profit {
+    type:  average
+    sql: ${profit} ;;
+    value_format_name: usd
+  }
+  measure: average_discount {
+    type: average
+    sql: ${discount} ;;
+    value_format_name: usd
+  }
+
 }
