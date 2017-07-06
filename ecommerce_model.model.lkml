@@ -18,3 +18,21 @@ join: orders {
   relationship: many_to_one
 }
 }
+explore: users {
+  join: orders {
+    sql_on: ${users.id}=${orders.user_id} ;;
+    relationship: one_to_many
+  }
+  join: order_items {
+    sql_on: ${orders.id}=${order_items.order_id} ;;
+    relationship: one_to_many
+  }
+  join: inventory_items {
+    sql_on: ${order_items.inventory_item_id}=${inventory_items.id} ;;
+    relationship: many_to_one
+  }
+  join: products {
+    sql_on: ${inventory_items.product_id}=${products.id} ;;
+    relationship: many_to_one
+  }
+}
