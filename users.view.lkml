@@ -14,6 +14,7 @@ view: users {
 
   dimension: age_group {
     type: tier
+    sql: ${TABLE}.age  ;;
     tiers: [18, 25, 45, 65]
     style: integer
   }
@@ -63,6 +64,7 @@ view: users {
   }
 
   dimension: state {
+    map_layer_name: us_states
     type: string
     sql: ${TABLE}.state ;;
   }
@@ -75,5 +77,9 @@ view: users {
   measure: count {
     type: count
     drill_fields: [id, last_name, first_name, orders.count]
+  }
+  measure: distinct_user {
+    type: count_distinct
+    sql: ${TABLE}.id ;;
   }
 }
