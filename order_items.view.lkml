@@ -38,6 +38,17 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  dimension: return_age {
+    type: number
+    label: "Days to Return"
+    sql: DATEDIFF(DATE(order_items.returned_at), DATE(orders.created_at)) ;;
+  }
+  measure: avg_return_age{
+    type: average
+    label: "Average Days to Return"
+    sql: ${TABLE}.return_age;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, inventory_items.id, orders.id]
