@@ -46,7 +46,7 @@ view: order_items {
   measure: avg_return_age{
     type: average
     label: "Average Days to Return"
-    sql: ${TABLE}.return_age;;
+    sql:DATEDIFF(DATE(order_items.returned_at), DATE(orders.created_at)) ;;
   }
 
   measure: count {
