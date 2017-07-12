@@ -3,6 +3,11 @@ connection: "thelook"
 include: "*.view.lkml"         # include all views in this project
 include: "*.dashboard.lookml"  # include all dashboards in this project
 
+datagroup: ecommerce_data {
+  sql_trigger: SELECT CURDATE() ;;
+}
+
+
 explore: inventory_items {
 join: products {
   sql_on: ${inventory_items.product_id}=${products.id} ;;
@@ -35,6 +40,7 @@ explore: users {
     sql_on: ${inventory_items.product_id}=${products.id} ;;
     relationship: many_to_one
   }
+  persist_with: ecommerce_data
 }
 
 explore: customer_history {
